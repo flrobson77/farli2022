@@ -18,7 +18,7 @@
 	<main>
 		<article>
 			<header>
-			<h2> Cenario </h2>
+			<h2> Cenário </h2>
 			</header>
 			<p>Para este artigo, promova de usuário comum para root e no diretório /root crie o diretório brasil e depois usando o comando 	cd acesse o diretório.</p>
 			<fieldset>
@@ -49,8 +49,8 @@
 		<p>O diretório é um arquivo especial que é usado para organizar arquivos</p>
 		<article>
 		<header>
-			<h2> Criar diretórios </h2>
-			<h3> mkdir </h3>
+			<h2> #mkdir </h2>
+			<p> Criar diretórios </p>
 		</header>
 		<p> A criação de diretórios é essencial para organizar seus arquivos e pastas. Os arquivos podem ser
 		agrupados de maneira lógica dentro de um diretório. Para criar um diretório, use mkdir:</p>
@@ -95,12 +95,298 @@
 			</pre></fieldset>
 		</article>
 		<article>
-		<header>
-			<h2> Manipulação de arquivos </h2>
-		</header>
-			<p> O comando ls é uma das ferramentas de linha de comando mais importantes que precisamos aprender para navegar no sistema de arquivos. </p>
+			<header>
+				<h2> #rmdir </h2>
+				<p> Removendo diretórios </p>
+			</header>
+			<p> Deleta um diretório se ele estiver vazio, sua sintaxe é dada por:</p>
+				<fieldset>	
+				<pre>
+					root@operacao:[brasil]# rmdir norte
+					root@operacao:[brasil]# ls
+					saopaulo.doc  sudeste  sul
+				</pre>
+				</fieldset>
+			<p> Se tentar deletar um diretório que não esteja vazio o rmdir vai falhar</p>
+				<fieldset>
+				<pre>
+					root@operacao:[brasil]# rmdir sul
+					rmdir: falhou em remover 'sul': Diretório não vazio
+					root@operacao:[brasil]# ls sul
+					parana  riogdesul  stacatarina			
+				</pre>				
+				</fieldset>
 		</article>
 		</section>
+		<section>
+			<header>
+				<h2> Manipulação de arquivos </h2>
+			</header>
+			<article>
+				<header>
+				<h2> #touch</h2>
+				<p> Criar arquivos</p>
+				</header>
+				<p> O comando touch é a maneira mais fácil de criar arquivos novos e vazios.</p>
+				<fieldset>
+				<pre>
+				root@operacao:[brasil]# touch brasil.txt
+				root@operacao:[brasil]# ls
+				brasil.txt  sudeste  sul
+				</pre>
+				</fieldset>
+				<p> É possível ainda criar mais de um arquivo passando os nomes com um espaço no argumento do comando touch </p>
+				<fieldset>
+					<pre>
+					root@operacao:[brasil]# touch saopaulo.txt parana.txt
+					root@operacao:[brasil]# ls
+					brasil.txt  parana.txt  saopaulo.txt  sudeste  sul
+					</pre>
+				</fieldset>
+				<p>Podemos criar arquivos usando expressões regulares</p>
+				<fieldset>
+					<pre>			
+					root@operacao:[brasil]# touch {portoalegre,floripa,riodejaneiro}.txt
+					root@operacao:[brasil]# ls
+					brasil.txt  floripa.txt  parana.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+					</pre>
+				</fieldset>
+				<p> Comando touch pode ser usado para criar arquivos ocultos, basta colocar um "." na frente do nome do arquivo</p>
+				<fieldset>
+					<pre>
+						root@operacao:[brasil]# touch .oculto.txt
+						root@operacao:[brasil]# ls
+						brasil.txt  floripa.txt  parana.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+						root@operacao:[brasil]# ls -a
+						.   brasil.txt   .oculto.txt  portoalegre.txt   saopaulo.txt  sul
+						..  floripa.txt  parana.txt   riodejaneiro.txt  sudeste
+					</pre>
+				</fieldset>
+				<p>
+					Com o comando touch pode ser alterar as informações de mactimes ou seja de data e hora do arquivo. Observe quando aplicado o comando touch com a opção -am foi alterado a hora de acesso do arquivo.
+				</p>
+				<fieldset>
+					<pre>
+						root@operacao:[brasil]# ls -l saopaulo.txt 
+						-rw-r--r-- 1 root root 0 abr 17 19:27 saopaulo.txt
+						root@operacao:[brasil]# touch -am saopaulo.txt 
+						root@operacao:[brasil]# ls -l saopaulo.txt 
+						-rw-r--r-- 1 root root 0 abr 17 19:47 saopaulo.txt
+					</pre>
+				</fieldset>
+			</article>
+			<article>
+				<header>
+				<h2> #ls </h2>
+				<p>Lista arquivos e diretórios </p>
+				</header>
+				<p> O comando ls é uma das ferramentas de linha de comando mais importantes que precisamos aprender para navegar no sistema de arquivos. </p>
+				<p> Em sua forma mais básica, o ls lista somente nomes de arquivos e diretórios:</p>
+			<fieldset>
+			<pre>
+				root@operacao:[brasil]# ls
+				sudeste  sul
+			</pre></fieldset>
+			<p> Quando usado com -l, conhecido como formato de “listagem longa”, ele mostra as permissões de arquivo ou diretório, proprietário, tamanho, data de modificação, hora e nome:</p>
+			<fieldset><pre>
+				root@operacao:[brasil]# ls -l
+				total 8
+				drwxr-xr-x 3 root root 4096 abr 17 13:16 sudeste
+				drwxr-xr-x 5 root root 4096 abr 17 13:36 sul
+			</pre>
+			</fieldset>
+			<p> Quando usado com a opção -a, exibe todos os arquivos inclusive os ocultos</p>
+			<fieldset>
+				<pre>
+					root@operacao:[brasil]# ls -a
+					.   brasil.txt   .oculto.txt  portoalegre.txt   saopaulo.txt  sul
+					..  floripa.txt  parana.txt   riodejaneiro.txt  sudeste
+				</pre>
+			</fieldset>
+			<p> Quando usado com a opção -h em um formato legível por humanos</p>
+			<fieldset>
+				<pre>
+					root@operacao:[brasil]# ls -lha
+					total 16K
+					drwxr-xr-x 4 root root 4,0K abr 17 19:44 .
+					drwx------ 8 root root 4,0K abr 17 19:04 ..
+					-rw-r--r-- 1 root root    0 abr 17 19:27 brasil.txt
+					-rw-r--r-- 1 root root    0 abr 17 19:31 floripa.txt
+					-rw-r--r-- 1 root root    0 abr 17 19:44 .oculto.txt
+					-rw-r--r-- 1 root root    0 abr 17 19:27 parana.txt
+					-rw-r--r-- 1 root root    0 abr 17 19:31 portoalegre.txt
+					-rw-r--r-- 1 root root    0 abr 17 19:31 riodejaneiro.txt
+					-rw-r--r-- 1 root root    0 abr 17 19:47 saopaulo.txt
+					drwxr-xr-x 3 root root 4,0K abr 17 13:16 sudeste
+					drwxr-xr-x 5 root root 4,0K abr 17 13:36 sul
+				</pre>
+			</fieldset>
+			<p>Para manipular um diretório e seu conteúdo, precisamos aplicar a recursão. Recursão significa efetuar uma ação e repetir essa ação em toda a árvore de diretórios. No Linux, as opções -r ou -R ou --recursive são geralmente associadas à recursão.</p>
+			<p> Quando aplicado a opção -R lista todos os arquivos e diretórios a partir do ponto que estiver na árvore</p>
+			<fieldset>
+				<pre>
+					root@operacao:[brasil]# ls -R
+					.:
+					brasil.txt  floripa.txt  parana.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+
+					./sudeste:
+					saopaulo
+
+					./sudeste/saopaulo:
+					guarulhos
+
+					./sudeste/saopaulo/guarulhos:
+
+					./sul:
+					parana  riogdesul  stacatarina
+
+					./sul/parana:
+
+					./sul/riogdesul:
+
+					./sul/stacatarina:
+				</pre>
+			</fieldset>
+		</article>
+		<article>
+			<header>
+			<h2> #cp </h2>
+			<p>Copiando arquivos </p>
+			</header>
+			<p> Podemos usar o cp para todas as tarefas de cópia, seja para mover um arquivo de música ou um arquivo de sistema de um diretório para outro </p>			
+			<fieldset>
+			<pre>
+			root@operacao:[brasil]# ls sul
+			parana  riogdesul  stacatarina
+			root@operacao:[brasil]# cp parana.txt sul/parana
+			root@operacao:[brasil]# ls sul/parana/
+			parana.txt
+			</pre>
+			</fieldset>
+
+			<p> Podemos usar caracteres curinga para copiar vários arquivos como por exemplo todos os .conf dentro do diretório /etc</p>
+			<p> As instruções a seguir criou o diretório /srv/backup/configuracao e depois executamos a cópia de todos os arquivos com o final .conf com o parametro -v ativado</p>
+			<fieldset>
+				<pre>
+			root@operacao:[brasil]# mkdir -p /srv/backup/configuracao
+			root@operacao:[brasil]# cp -v /etc/*.conf /srv/backup/configuracao/
+			'/etc/adduser.conf' -> '/srv/backup/configuracao/adduser.conf'
+			'/etc/ca-certificates.conf' -> '/srv/backup/configuracao/ca-certificates.conf'
+			'/etc/debconf.conf' -> '/srv/backup/configuracao/debconf.conf'
+			'/etc/deluser.conf' -> '/srv/backup/configuracao/deluser.conf'
+			'/etc/discover-modprobe.conf' -> '/srv/backup/configuracao/discover-modprobe.conf'
+			'/etc/e2scrub.conf' -> '/srv/backup/configuracao/e2scrub.conf'
+			'/etc/fuse.conf' -> '/srv/backup/configuracao/fuse.conf'
+			'/etc/gai.conf' -> '/srv/backup/configuracao/gai.conf'
+			'/etc/host.conf' -> '/srv/backup/configuracao/host.conf'
+			'/etc/kernel-img.conf' -> '/srv/backup/configuracao/kernel-img.conf'
+			'/etc/ld.so.conf' -> '/srv/backup/configuracao/ld.so.conf'
+			'/etc/libao.conf' -> '/srv/backup/configuracao/libao.conf'
+			'/etc/libaudit.conf' -> '/srv/backup/configuracao/libaudit.conf'
+			'/etc/logrotate.conf' -> '/srv/backup/configuracao/logrotate.conf'
+			'/etc/mke2fs.conf' -> '/srv/backup/configuracao/mke2fs.conf'
+			'/etc/nftables.conf' -> '/srv/backup/configuracao/nftables.conf'
+			'/etc/nsswitch.conf' -> '/srv/backup/configuracao/nsswitch.conf'
+			'/etc/pam.conf' -> '/srv/backup/configuracao/pam.conf'
+			'/etc/reportbug.conf' -> '/srv/backup/configuracao/reportbug.conf'
+			'/etc/resolv.conf' -> '/srv/backup/configuracao/resolv.conf'
+			'/etc/rsyslog.conf' -> '/srv/backup/configuracao/rsyslog.conf'
+			'/etc/sensors3.conf' -> '/srv/backup/configuracao/sensors3.conf'
+			'/etc/sudo.conf' -> '/srv/backup/configuracao/sudo.conf'
+			'/etc/sudo_logsrvd.conf' -> '/srv/backup/configuracao/sudo_logsrvd.conf'
+			'/etc/sysctl.conf' -> '/srv/backup/configuracao/sysctl.conf'
+			'/etc/ucf.conf' -> '/srv/backup/configuracao/ucf.conf'
+			'/etc/usb_modeswitch.conf' -> '/srv/backup/configuracao/usb_modeswitch.conf'
+			'/etc/xattr.conf' -> '/srv/backup/configuracao/xattr.conf'
+			</pre>
+			</fieldset>
+			<p> Verificando se foi realizado com sucesso.</p>
+			<fieldset>
+			<pre>
+			root@operacao:[brasil]# ls /srv/backup/configuracao/
+			adduser.conf            e2scrub.conf     ld.so.conf      nftables.conf   rsyslog.conf       ucf.conf
+			ca-certificates.conf    fuse.conf        libao.conf      nsswitch.conf   sensors3.conf      usb_modeswitch.conf
+			debconf.conf            gai.conf         libaudit.conf   pam.conf        sudo.conf          xattr.conf
+			deluser.conf            host.conf        logrotate.conf  reportbug.conf  sudo_logsrvd.conf
+			discover-modprobe.conf  kernel-img.conf  mke2fs.conf     resolv.conf     sysctl.conf
+			</pre>
+			</fieldset>
+
+			<p> O comando cp pode ser usado para realizar backup de um diretório inteiro, por isso é necessário executar o comando com a opção -r acionada</p>
+			<fieldset>
+			<pre>
+			root@operacao:[brasil]# cp /etc /srv/backup/
+			cp: -r não especificado; omitindo o diretório '/etc'
+			root@operacao:[brasil]# cp -r /etc /srv/backup/
+			root@operacao:[brasil]# ls /srv/backup/
+			configuracao  etc
+			</pre>
+			</fieldset>
+		</article>
+		<article>
+			<header>
+			<h2> #mv </h2>
+			<p>movendo ou renomeando arquivos </p>
+			</header>
+			<p> o Linux fornece um comando para mover e renomear arquivos. Ele se chama mv. A operação de mover é análoga à de recortar e colar que costumamos executar por meio de uma interface gráfica de usuário (GUI). </p>			
+			<p> Usando o comando mover o arquivo parana.txt sul/parana</p>	
+			<fieldset>
+			<pre>
+				root@operacao:[brasil]# ls
+				brasil.txt  floripa.txt  parana.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+				root@operacao:[brasil]# mv parana.txt sul/parana
+				root@operacao:[brasil]# ls
+				brasil.txt  floripa.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+				root@operacao:[brasil]# ls sul/parana/
+				parana.txt
+				</pre>
+			</fieldset>
+			<p> Com o comando mover podemos usar para trocar o nome de um arquivo ou diretório</p>	
+			<fieldset>
+				<pre>
+				root@operacao:[brasil]# mv sul/parana/parana.txt sul/parana/curitiba.txt
+				root@operacao:[brasil]# ls sul/parana/
+				curitiba.txt
+			</pre>
+			</fieldset>
+		</article>
+		<article>
+			<header>
+			<h2> #rm </h2>
+			<p>Remover arquivos e diretórios </p>
+			</header>
+			<p> rm é usado para excluir arquivos. Pense nele como uma forma abreviada da palavra “remover”. Note que a ação de remover um arquivo geralmente é irreversível e, portanto, este comando deve ser usado com cautela </p>			
+			<fieldset>
+			<pre>
+				root@operacao:[brasil]# ls
+				brasil.txt  floripa.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+				root@operacao:[brasil]# rm brasil.txt 
+				root@operacao:[brasil]# ls
+				floripa.txt  portoalegre.txt  riodejaneiro.txt  saopaulo.txt  sudeste  sul
+			</pre>
+			</fieldset>
+			<p> Quando usamos o rm com a opção -rf excluir uma árvore de arquivos e diretórios</p>
+				<fieldset>
+				<pre>
+				root@operacao:[brasil]# tree -L 2 sul
+				sul
+				├── parana
+				│   └── curitiba.txt
+				├── riogdesul
+				└── stacatarina
+				
+				3 directories, 1 file
+				root@operacao:[brasil]# rm -rf sul/parana
+				root@operacao:[brasil]# tree -L 2 sul
+				sul
+				├── riogdesul
+				└── stacatarina
+				
+				2 directories, 0 files
+				</pre>
+				</fieldset>
+		</article>
+	</section>
 	<article>
 	<header>
 		<h2> Referências </h2>
